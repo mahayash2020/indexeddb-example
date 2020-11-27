@@ -80,7 +80,7 @@ openReq.onsuccess = function (event) {
     getAll(renderAll);
   });
 
-  // 登録ボタン押下時処理
+  // 削除ボタン押下時処理
   document.getElementById("delete").addEventListener("click", function () {
     var ssn = document.getElementById("ssn").value;
     // レコード削除
@@ -160,6 +160,7 @@ function updateRecord(db, _ssn, _name, _age, _email) {
     email: _email,
   });
 }
+
 // レコード削除
 function deleteRecord(db, _ssn) {
     var trans = db.transaction(storeName, "readwrite");
