@@ -58,20 +58,35 @@ openReq.onsuccess = function (event) {
 
   // 全件検索ボタン押下時処理
   document.getElementById("allSearch").addEventListener("click", function () {
-    // 全件取得
+    // 全件取得して画面に反映
     getAll(renderAll);
   });
 
   // 検索ボタン押下時処理
   document.getElementById("search").addEventListener("click", function () {
-    // 条件取得
+    // 条件指定で取得して画面に反映
     paramSearch(renderAll);
   });
 
   // 登録ボタン押下時処理
   document.getElementById("insert").addEventListener("click", function () {
-    // 条件取得
-    paramSearch(renderAll);
+    var ssn = document.getElementById("ssn").value;
+    var name = document.getElementById("name").value;
+    var age = document.getElementById("age").value;
+    var email = document.getElementById("email").value;
+    // レコード登録
+    updateRecord(db, ssn, name, age, email);
+    // 全件取得して画面に反映
+    getAll(renderAll);
+  });
+
+  // 登録ボタン押下時処理
+  document.getElementById("delete").addEventListener("click", function () {
+    var ssn = document.getElementById("ssn").value;
+    // レコード削除
+    deleteRecord(db, ssn, name, age, email);
+    // 全件取得して画面に反映
+    getAll(renderAll);
   });
 
   // 条件取得
@@ -133,13 +148,21 @@ openReq.onsuccess = function (event) {
   };
 };
 
-// DB更新
-function updateDb(db, store_name, cnt) {
-  var trans = db.transaction(store_name, "readwrite");
-  var store = trans.objectStore(store_name);
+// レコード登録（更新）
+function updateRecord(db, _ssn, _name, _age, _email) {
+  var trans = db.transaction(storeName, "readwrite");
+  var store = trans.objectStore(storeName);
   // メモ：putが更新or挿入 , addは挿入のみ
   return store.put({
-    id: 1,
-    cnt: cnt,
+    ssn: _ssn,
+    age: _age,
+    name: _name,
+    email: _email,
   });
 }
+// レコード削除
+function deleteRecord(db, _ssn) {
+    var trans = db.transaction(storeName, "readwrite");
+    var store = trans.objectStore(storeName);
+    return store.delete(_ssn);
+  }
