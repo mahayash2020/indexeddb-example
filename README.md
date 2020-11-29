@@ -1,3 +1,5 @@
+PWA×IndexedDBでのオフライン対応サンプル
+
 下記にアクセスすれば動く  
 https://mahayash2020.github.io/
 
