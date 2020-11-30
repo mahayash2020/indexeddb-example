@@ -26,8 +26,8 @@ self.addEventListener("install", function (event) {
 // リソースフェッチ時のキャッシュロード処理
 self.addEventListener("fetch", function (event) {
   console.log("sw fetch");
-  // urlがhttps://httpbin.orgで始まるリクエストの場合
-  if (event.request.url.startWith("https://httpbin.org")) {
+  // 検索(オフライン対応)のリクエストの場合
+  if (event.request.url.indexOf("https://httpbin.org") != -1) {
     /* レスポンス編集
      * 以下の優先度でデータを返す。
      * 1.ネットワークリクエストデータ
