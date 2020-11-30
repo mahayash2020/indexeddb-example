@@ -58,12 +58,16 @@ openReq.onsuccess = function (event) {
 
   // 全件検索ボタン押下時処理
   document.getElementById("allSearch").addEventListener("click", function () {
+    // テーブルクリア
+    $("#table_body").empty();
     // 全件取得して画面に反映
     getAll(renderAll);
   });
 
   // 検索ボタン押下時処理
   document.getElementById("search").addEventListener("click", function () {
+    // テーブルクリア
+    $("#table_body").empty();
     // 条件指定で取得して画面に反映
     paramSearch(renderAll);
   });
@@ -76,6 +80,8 @@ openReq.onsuccess = function (event) {
     var email = document.getElementById("email").value;
     // レコード登録
     updateRecord(ssn, name, age, email);
+    // テーブルクリア
+    $("#table_body").empty();
     // 全件取得して画面に反映
     getAll(renderAll);
   });
@@ -85,6 +91,8 @@ openReq.onsuccess = function (event) {
     var ssn = document.getElementById("ssn").value;
     // レコード削除
     deleteRecord(ssn);
+    // テーブルクリア
+    $("#table_body").empty();
     // 全件取得して画面に反映
     getAll(renderAll);
   });
@@ -133,8 +141,6 @@ openReq.onsuccess = function (event) {
   // 表示処理
   renderAll = function (data) {
     if (data.ssn != "") {
-      // テーブルクリア
-      $("#table_body").empty();
       var table_row = document.createElement("tr");
       table_row.innerHTML =
         "<td>" +
