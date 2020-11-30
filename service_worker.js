@@ -37,13 +37,14 @@ self.addEventListener("fetch", function (event) {
     console.log("sw if in");
     event.respondWith(
       // １．ネットワークリクエスト実行
-      fetch(event.request)
+      // fetch(event.request)
+      fetch(event.request.url, {method : 'GET',headers:{'Content-Type': 'application/json'}})
         // ２．ネットワークリクエストが成功した場合
         .then(function (response) {
           console.log("sw fetch then");
           // キャッシュに(リクエスト/レスポンス)を追加
           cache.put(event.request.url, response);
-          return response;
+          return response.json();
         })
         // ３．ネットワークリクエストが失敗した場合
         .catch(function (error) {
