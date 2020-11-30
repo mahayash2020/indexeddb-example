@@ -43,7 +43,9 @@ self.addEventListener("fetch", function (event) {
           console.log("sw fetch then");
           // キャッシュに(リクエスト/レスポンス)を追加
           // cache.put(event.request.url, response); // エラーになるので一旦コメント
-          return response.json();
+              var init = { status: 200, statusText: "SuperSmashingGreat!" };
+              var json = response;
+          return new Response(JSON.stringify(response),init);
         })
         // ３．ネットワークリクエストが失敗した場合
         .catch(function (error) {
