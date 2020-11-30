@@ -41,7 +41,7 @@ self.addEventListener("fetch", function (event) {
       
         // ２．ネットワークリクエストが成功した場合
       .then(response => {
-        return response.json();
+        return response;
         })
         // ３．ネットワークリクエストが失敗した場合
         .catch(function (error) {
@@ -52,7 +52,7 @@ self.addEventListener("fetch", function (event) {
             if (response) {
               console.log("sw キャッシュあり");
               // キャッシュのデータを返す
-              return response.json();
+              return response;
             } else {
               console.log("sw キャッシュなし");
               // データなし
