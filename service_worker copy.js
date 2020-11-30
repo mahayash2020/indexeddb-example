@@ -37,11 +37,15 @@ self.addEventListener("fetch", function (event) {
     console.log("sw if in");
     event.respondWith(
       // １．ネットワークリクエスト実行
-      fetch(event.request)
-      
+      fetch(event.request.url)
         // ２．ネットワークリクエストが成功した場合
-      .then(response => {
-        return response.json();
+        .then(function (response) {
+          console.log("sw fetch then");
+          // キャッシュに(リクエスト/レスポンス)を追加
+          // cache.put(event.request.url, response); // エラーになるので一旦コメント
+              var init = { status: 200, statusText: "SuperSmashingGreat!" };
+              var rJson = response.json();
+          return new Response(response.json(),init);
         })
         // ３．ネットワークリクエストが失敗した場合
         .catch(function (error) {
@@ -52,7 +56,7 @@ self.addEventListener("fetch", function (event) {
             if (response) {
               console.log("sw キャッシュあり");
               // キャッシュのデータを返す
-              return response.json();
+              return response;
             } else {
               console.log("sw キャッシュなし");
               // データなし
