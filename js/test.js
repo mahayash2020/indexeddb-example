@@ -75,7 +75,7 @@ openReq.onsuccess = function (event) {
     var age = document.getElementById("age").value;
     var email = document.getElementById("email").value;
     // レコード登録
-    updateRecord(db, ssn, name, age, email);
+    updateRecord(ssn, name, age, email);
     // 全件取得して画面に反映
     getAll(renderAll);
   });
@@ -84,7 +84,7 @@ openReq.onsuccess = function (event) {
   document.getElementById("delete").addEventListener("click", function () {
     var ssn = document.getElementById("ssn").value;
     // レコード削除
-    deleteRecord(db, ssn, name, age, email);
+    deleteRecord(ssn);
     // 全件取得して画面に反映
     getAll(renderAll);
   });
@@ -146,24 +146,23 @@ openReq.onsuccess = function (event) {
     //table_bodyというIDのテーブルに行を追加。
     document.getElementById("table_body").appendChild(table_row);
   };
-};
 
-// レコード登録（更新）
-function updateRecord(db, _ssn, _name, _age, _email) {
-  var trans = db.transaction(storeName, "readwrite");
-  var store = trans.objectStore(storeName);
-  // メモ：putが更新or挿入 , addは挿入のみ
-  return store.put({
-    ssn: _ssn,
-    age: _age,
-    name: _name,
-    email: _email,
-  });
-}
-
-// レコード削除
-function deleteRecord(db, _ssn) {
+  // レコード登録（更新）
+  updateRecord = function (_ssn, _name, _age, _email) {
+    var trans = db.transaction(storeName, "readwrite");
+    var store = trans.objectStore(storeName);
+    // メモ：putが更新or挿入 , addは挿入のみ
+    return store.put({
+      ssn: _ssn,
+      age: _age,
+      name: _name,
+      email: _email,
+    });
+  };
+  // レコード削除
+  deleteRecord = function (_ssn) {
     var trans = db.transaction(storeName, "readwrite");
     var store = trans.objectStore(storeName);
     return store.delete(_ssn);
-  }
+  };
+};
