@@ -61,7 +61,12 @@ self.addEventListener("fetch", function (event) {
 
               // ブラウザDBからデータを検索してレスポンスを作成
               var init = { status: 200, statusText: "SuperSmashingGreat!" };
-              return new Response(JSON.stringify({args:{ nssn: 9, name: 9, age:9, email:9 }}), init);
+              return new Response(
+                JSON.stringify({
+                  args: { nssn: 9, name: 9, age: 9, email: 9 },
+                }),
+                init
+              );
             }
           });
         })
