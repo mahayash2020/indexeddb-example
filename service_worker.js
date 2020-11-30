@@ -37,13 +37,13 @@ self.addEventListener("fetch", function (event) {
     console.log("sw if in");
     event.respondWith(
       // １．ネットワークリクエスト実行
-      fetch(event.request)
+      fetch(event.request.url)
         // ２．ネットワークリクエストが成功した場合
         .then(function (response) {
           console.log("sw fetch then");
           // キャッシュに(リクエスト/レスポンス)を追加
           cache.put(event.request.url, response);
-          return response;
+          return response.json();
         })
         // ３．ネットワークリクエストが失敗した場合
         .catch(function (error) {
@@ -60,10 +60,8 @@ self.addEventListener("fetch", function (event) {
               // データなし
 
               // ブラウザDBからデータを検索してレスポンスを作成
-              // [TODO] myBlobは返したいデータに修正する
-              var myBlob = new Blob();
               var init = { status: 200, statusText: "SuperSmashingGreat!" };
-              return new Response(myBlob, init);
+              return new Response(JSON.stringify({args:{ nssn: 9, name: 9, age:9, email:9 }}), init);
             }
           });
         })
