@@ -33,7 +33,7 @@ self.addEventListener("fetch", function (event) {
         .then((response) => {
           console.log("fetch if 2:response return and cache.put");
           // キャッシュに追加(既に保存しているリクエストの場合は上書き)してレスポンスを返す
-          return caches.open("CACHE_NAME").then(function (cache) {
+          return caches.open(CACHE_NAME).then(function (cache) {
             cache.put(event.request, response.clone());
             return response;
           });
