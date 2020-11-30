@@ -44,8 +44,8 @@ self.addEventListener("fetch", function (event) {
           // キャッシュに(リクエスト/レスポンス)を追加
           // cache.put(event.request.url, response); // エラーになるので一旦コメント
               var init = { status: 200, statusText: "SuperSmashingGreat!" };
-              var json = response;
-          return new Response(JSON.stringify(response),init);
+              var rJson = response.json();
+          return new Response(response.json(),init);
         })
         // ３．ネットワークリクエストが失敗した場合
         .catch(function (error) {
