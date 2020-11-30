@@ -4,6 +4,7 @@ var urlsToCache = ["/mahayash2020.github.io/"];
 
 // インストール処理
 self.addEventListener("install", function (event) {
+  console.log("sw install");
   event.waitUntil(
     caches.open(CACHE_NAME).then(function (cache) {
       return cache.addAll(urlsToCache);
@@ -24,6 +25,7 @@ self.addEventListener("install", function (event) {
 
 // リソースフェッチ時のキャッシュロード処理
 self.addEventListener("fetch", function (event) {
+  console.log("sw fetch");
   // urlがhttps://httpbin.orgで始まるリクエストの場合
   if (event.request.url.startWith("https://httpbin.org")) {
     /* レスポンス編集
@@ -32,30 +34,29 @@ self.addEventListener("fetch", function (event) {
      * 2.キャッシュデータ
      * 3.ブラウザDBから検索したデータ
      */
+    console.log("sw if in");
     event.respondWith(
       // １．ネットワークリクエスト実行
       fetch(event.request)
         // ２．ネットワークリクエストが成功した場合
         .then(function (response) {
+          console.log("sw fetch then");
           // キャッシュに(リクエスト/レスポンス)を追加
-          cache
-            .put(event.request.url, response)
-            .then(() =>
-              $("#span2").text(
-                `キャッシュに追加しました。${event.request.url} , ${response}`
-              )
-            );
+          cache.put(event.request.url, response);
           return response;
         })
         // ３．ネットワークリクエストが失敗した場合
         .catch(function (error) {
+          console.log("sw fetch error");
           // キャッシュにデータがあるかチェック
           caches.match(event.request).then(function (response) {
             // データあり
             if (response) {
+              console.log("sw キャッシュあり");
               // キャッシュのデータを返す
               return response;
             } else {
+              console.log("sw キャッシュなし");
               // データなし
 
               // ブラウザDBからデータを検索してレスポンスを作成
@@ -68,6 +69,7 @@ self.addEventListener("fetch", function (event) {
         })
     );
   } else {
+    console.log("sw else in");
     // その他のリクエストの場合
     // ※このサンプルだと画面にアクセスした時のリクエストが該当する
     event.respondWith(

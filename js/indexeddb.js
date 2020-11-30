@@ -132,19 +132,23 @@ openReq.onsuccess = function (event) {
 
   // 表示処理
   renderAll = function (data) {
-    var table_row = document.createElement("tr");
-    table_row.innerHTML =
-      "<td>" +
-      data.ssn +
-      "</td><td>" +
-      data.name +
-      "</td><td>" +
-      data.age +
-      "</td><td>" +
-      data.email +
-      "</td>";
-    //table_bodyというIDのテーブルに行を追加。
-    document.getElementById("table_body").appendChild(table_row);
+    if (data.ssn != "") {
+      // テーブルクリア
+      $("#table_body").empty();
+      var table_row = document.createElement("tr");
+      table_row.innerHTML =
+        "<td>" +
+        data.ssn +
+        "</td><td>" +
+        data.name +
+        "</td><td>" +
+        data.age +
+        "</td><td>" +
+        data.email +
+        "</td>";
+      //table_bodyというIDのテーブルに行を追加。
+      document.getElementById("table_body").appendChild(table_row);
+    }
   };
 
   // レコード登録（更新）
