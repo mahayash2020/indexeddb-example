@@ -1,11 +1,10 @@
+// IndexedDB初期データ
 const customerData = [
   { ssn: "111-11-1111", name: "Bill", age: "29", email: "bill@com" },
   { ssn: "222-22-2222", name: "Alice", age: "32", email: "alice@com" },
   { ssn: "333-33-3333", name: "Dom", age: "35", email: "dom@com" },
   { ssn: "555-55-5555", name: "Donna", age: "32", email: "donna@home.org" },
 ];
-
-var count = 0;
 
 // DB名とバージョン
 var dbName = "sampleDB";
@@ -41,11 +40,7 @@ openReq.onupgradeneeded = function (event) {
     var tr = db.transaction([storeName], "readwrite");
     // オブジェクトストア取得
     var customerObjectStore = tr.objectStore(storeName);
-
-    // トランザクション開始とオブジェクトストア取得は繋げて1行で行うことも可
-    //var customerObjectStore = db.transaction([storeName],"readwrite").objectStore(storeName);
-
-    // 新たに作成したオブジェクトストアにデータを追加
+    // オブジェクトストアにデータを追加
     for (var i in customerData) {
       customerObjectStore.add(customerData[i]);
     }
