@@ -12,22 +12,22 @@ document.getElementById("onoffSearch").addEventListener("click", function () {
       if (response.status == "200") {
         // ブラウザDBから取得する必要がある場合（オフラインかつキャッシュにデータが無い）
         if (response.statusText == "getDB") {
+          $("#span2").text('ブラウザDBから検索');
           // リクエストキャッシュなし
           // テーブルクリア
           $("#table_body").empty();
           // 入力条件を元にブラウザDBから検索（完全一致検索）
           paramSearch(renderAll);
-          $("#span3").text(`3:${response.status}`);
           return;
         }
+        $("#span2").text('NETWORK or キャッシュからレスポンス取得');
 
         // ネットワークリクエスト成功orリクエストキャッシュあり
         console.log("index.html response.status is 200");
         return response.json();
       
       } else {
-        // 今のところなし
-        $("#span4").text(`4:${response.status}`);
+        // 今のところ未使用
         return;
       }
     })
@@ -45,7 +45,6 @@ document.getElementById("onoffSearch").addEventListener("click", function () {
       // テーブルクリア
       $("#table_body").empty();
       renderAll(data);
-      $("#span5").text("jsonData処理");
     });
 });
 
