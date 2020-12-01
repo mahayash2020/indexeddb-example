@@ -53,7 +53,7 @@ openReq.onupgradeneeded = function (event) {
 openReq.onsuccess = function (event) {
   var db = event.target.result;
 
-  // [ブラウザDBのみを操作] 検索ボタン押下時処理
+  // [ブラウザDB操作] 検索ボタン押下時処理
   document.getElementById("search").addEventListener("click", function () {
     // メッセージエリアと検索結果をクリア
     clearMessageAndResult();
@@ -61,7 +61,7 @@ openReq.onsuccess = function (event) {
     paramSearch(renderAll);
   });
 
-  // [ブラウザDBのみを操作] 全件検索ボタン押下時処理
+  // [ブラウザDB操作] 全件検索ボタン押下時処理
   document.getElementById("allSearch").addEventListener("click", function () {
     // メッセージエリアと検索結果をクリア
     clearMessageAndResult();
@@ -69,7 +69,7 @@ openReq.onsuccess = function (event) {
     getAll(renderAll, storeName);
   });
 
-  // [ブラウザDBのみを操作] 登録ボタン押下時処理
+  // [ブラウザDB操作] 登録ボタン押下時処理
   document.getElementById("insert").addEventListener("click", function () {
     // メッセージエリアと検索結果をクリア
     clearMessageAndResult();
@@ -84,7 +84,7 @@ openReq.onsuccess = function (event) {
     getAll(renderAll, storeName);
   });
 
-  // [ブラウザDBのみを操作] 削除ボタン押下時処理
+  // [ブラウザDB操作] 削除ボタン押下時処理
   document.getElementById("delete").addEventListener("click", function () {
     // メッセージエリアと検索結果をクリア
     clearMessageAndResult();
