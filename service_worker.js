@@ -31,7 +31,7 @@ self.addEventListener("fetch", function (event) {
       fetch(event.request)
         // ２．ネットワークリクエストが成功した場合
         .then((response) => {
-          console.log("fetch if 2:response return and cache.put");
+          console.log("fetch if 2:[return] Network Response , and cache.put");
           // キャッシュに追加(既に保存しているリクエストの場合は上書き)してレスポンスを返す
           return caches.open(CACHE_NAME).then(function (cache) {
             cache.put(event.request, response.clone());
@@ -44,17 +44,16 @@ self.addEventListener("fetch", function (event) {
           return caches.match(event.request).then(function (response) {
             // データあり
             if (response) {
-              console.log("fetch if 3-1:caches.match , cache response return");
+              console.log("fetch if 3-1:caches.match , [return] Cache Response");
               // キャッシュからレスポンスを返す
               return response;
             } else {
               // データなし
               console.log(
-                "fetch caches.match 3-2:caches.match , new Response return"
+                "fetch caches.match 3-2:caches.match , [return] create new Response"
               );
-              var init = { status: 201, statusText: "SuperSmashingGreat!" };
+              var init = { status: 200, statusText: "getDB" };
               var myResponse = new Response(null, init);
-              // ステータス201で返す
               return myResponse;
             }
           });

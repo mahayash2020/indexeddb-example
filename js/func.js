@@ -8,23 +8,23 @@ document.getElementById("onoffSearch").addEventListener("click", function () {
   fetch(url)
     .then((response) => {
       $("#span1").text("response.status =" + response.status);
-      $("#span2").empty();
-
-      // [TODO] 実際には200以外はエラー扱いなので、何かパラメータみたいなのを代わりにResponseに埋め込めないか余裕あれば調査する。
-
+      // リクエスト成功
       if (response.status == "200") {
+        // ブラウザDBから取得する必要がある場合（オフラインかつキャッシュにデータが無い）
+        if (response.statusText == "getDB") {
+          // リクエストキャッシュなし
+          // テーブルクリア
+          $("#table_body").empty();
+          // 入力条件を元にブラウザDBから検索（完全一致検索）
+          paramSearch(renderAll);
+          $("#span3").text(`3:${response.status}`);
+          return;
+        }
+
         // ネットワークリクエスト成功orリクエストキャッシュあり
         console.log("index.html response.status is 200");
         return response.json();
-      }
-      if (response.status == "201") {
-        // リクエストキャッシュなし
-        // テーブルクリア
-        $("#table_body").empty();
-        // 入力条件を元にブラウザDBから検索（完全一致検索）
-        paramSearch(renderAll);
-        $("#span3").text(`3:${response.status}`);
-        return;
+      
       } else {
         // 今のところなし
         $("#span4").text(`4:${response.status}`);
@@ -32,7 +32,7 @@ document.getElementById("onoffSearch").addEventListener("click", function () {
       }
     })
     .then((jsonData) => {
-      // ステータス201のとき、こっちにも処理が来てしまう暫定対処。本来は来ない様にするべき
+      // ブラウザDBからデータ取得時にこっちにも処理が来てしまう暫定対処。
       if (jsonData == undefined) {
         return;
       }
