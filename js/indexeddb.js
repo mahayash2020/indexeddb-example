@@ -53,6 +53,7 @@ openReq.onsuccess = function (event) {
 
   // 全件検索ボタン押下時処理
   document.getElementById("allSearch").addEventListener("click", function () {
+    clearStatusArea();
     // テーブルクリア
     $("#table_body").empty();
     // 全件取得して画面に反映
@@ -61,6 +62,7 @@ openReq.onsuccess = function (event) {
 
   // 検索ボタン押下時処理
   document.getElementById("search").addEventListener("click", function () {
+    clearStatusArea();
     // テーブルクリア
     $("#table_body").empty();
     // 条件指定で取得して画面に反映
@@ -69,6 +71,7 @@ openReq.onsuccess = function (event) {
 
   // 登録ボタン押下時処理
   document.getElementById("insert").addEventListener("click", function () {
+    clearStatusArea();
     var ssn = document.getElementById("ssn").value;
     var name = document.getElementById("name").value;
     var age = document.getElementById("age").value;
@@ -83,6 +86,7 @@ openReq.onsuccess = function (event) {
 
   // 削除ボタン押下時処理
   document.getElementById("delete").addEventListener("click", function () {
+    clearStatusArea();
     var ssn = document.getElementById("ssn").value;
     // レコード削除
     deleteRecord(ssn);
@@ -171,3 +175,9 @@ openReq.onsuccess = function (event) {
     return store.delete(_ssn);
   };
 };
+
+// fetchステータス表示エリア初期化
+function clearStatusArea() {
+  $("#span1").text("");
+  $("#span2").text("");
+}
