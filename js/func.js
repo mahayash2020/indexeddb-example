@@ -66,7 +66,7 @@ document
   .addEventListener("click", function () {
     // 結果表示エリアクリア
     $("#table_body").empty();
-    $("#span2").text("ブラウザDBから登録退避データを取得しました。");
+    $("#span2").text("検索完了。ブラウザDBから登録退避データを取得しました。");
     // DBから登録退避データを全件取得して表示
     getAll(renderAll, "customerWk");
   });
@@ -99,14 +99,14 @@ document.getElementById("onoffSearch").addEventListener("click", function () {
 
         // ブラウザDBから取得する必要がある場合（オフラインかつキャッシュにデータが無い）
         if (response.statusText == "getDB") {
-          $("#span2").text("ブラウザDBから検索");
+          $("#span2").text("検索完了。ブラウザDBから検索して表示します。（データが無い場合表示されません）");
           // 入力条件を元にブラウザDBから検索（完全一致検索）して終了
           paramSearch(renderAll);
           return;
         }
 
         // ネットワークリクエスト成功orリクエストキャッシュあり
-        $("#span2").text("NETWORK or キャッシュからレスポンス取得");
+        $("#span2").text("検索完了。NETWORK or キャッシュからレスポンス取得");
         console.log("index.html response.status is 200");
         return response.json();
       } else {

@@ -66,7 +66,7 @@ openReq.onsuccess = function (event) {
     // メッセージエリアと検索結果をクリア
     clearMessageAndResult();
     // ブラウザDBから全件取得して画面に表示
-    getAll(renderAll);
+    getAll(renderAll, storeName);
   });
 
   // [ブラウザDBのみを操作] 登録ボタン押下時処理
@@ -81,7 +81,7 @@ openReq.onsuccess = function (event) {
     // レコード登録
     updateRecord(ssn, name, age, email);
     // ブラウザDBから全件取得して画面に表示
-    getAll(renderAll);
+    getAll(renderAll, storeName);
   });
 
   // [ブラウザDBのみを操作] 削除ボタン押下時処理
@@ -93,7 +93,7 @@ openReq.onsuccess = function (event) {
     // レコード削除
     deleteRecord(ssn);
     // ブラウザDBから全件取得して画面に表示
-    getAll(renderAll);
+    getAll(renderAll, storeName);
   });
 
   /**
@@ -119,19 +119,19 @@ openReq.onsuccess = function (event) {
           // リクエスト成功 かつエラーではない
           if (response.status == "200" && response.statusText != "error") {
             $("#span2").text(
-              "登録退避データの登録が完了しました。" + saves.length + "件"
+              "同期完了。登録退避データの登録が完了しました。" + saves.length + "件"
             );
             // ブラウザDBの登録退避データを全件削除
             deleteWkRecordAll();
             return response.json();
           } else {
             // 何かしらのエラー
-            $("#span2").text("登録出来ませんでした。再度実行してください。");
+            $("#span2").text("同期失敗。登録出来ませんでした。再度実行してください。");
           }
         });
       } else {
         // 登録退避データ無し
-        $("#span2").text("登録退避データはありません。同期は不要です。");
+        $("#span2").text("同期失敗。登録退避データはありません。同期は不要です。");
       }
     };
 
@@ -176,10 +176,10 @@ openReq.onsuccess = function (event) {
   };
 
   // 全件取得処理
-  getAll = function (render) {
+  getAll = function (render, _storeName) {
     if (render) document.getElementById("table_body").innerHTML = "";
-    var transaction = db.transaction([storeName], "readonly");
-    var objectStore = transaction.objectStore(storeName);
+    var transaction = db.transaction([_storeName], "readonly");
+    var objectStore = transaction.objectStore(_storeName);
     var request = objectStore.openCursor();
     request.onsuccess = function (event) {
       var c = this.result;
