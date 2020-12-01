@@ -126,7 +126,7 @@ openReq.onsuccess = function (event) {
             return response.json();
           } else {
             // 何かしらのエラー
-            $("#span2").text("同期失敗。登録出来ませんでした。再度実行してください。");
+            $("#span2").text("同期失敗。オフラインの可能性があります。ネットワークに接続して再度実行してください。");
           }
         });
       } else {
