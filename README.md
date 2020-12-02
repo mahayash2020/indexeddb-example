@@ -1,6 +1,6 @@
-### PWA(ServiceWorker)×IndexedDBでのオフライン対応サンプル  
+# PWA(ServiceWorker)×IndexedDBでのオフライン対応サンプル  
 **概要：**  
-オフライン時にキャッシュ、IndexedDBを使って検索・登録をするサンプル。  
+オフライン時にキャッシュ、IndexedDBを使って検索・登録をする。  
 検索はキャッシュとIndexedDBで対応。登録はオフライン時はブラウザDBにデータを溜めこんで同期ボタンで送信するイメージ。  
 
 **確認用URL：  
