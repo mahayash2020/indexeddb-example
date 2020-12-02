@@ -4,7 +4,7 @@
 検索はキャッシュとIndexedDBで対応。登録はオフライン時はブラウザDBにデータを溜めこんで同期ボタンで送信するイメージ。  
 
 **確認用URL：  
-https://mahayash2020.github.io/**  
+https://mahayash2020.github.io/indexeddb-example/**  
 
 **機能説明：**  
 **■オフライン対応版（ネットワーク/キャッシュ/ブラウザDB の操作）**  
